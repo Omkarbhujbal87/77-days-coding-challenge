@@ -1,29 +1,35 @@
 #include <stdio.h>
-#include<stdlib.h>
-struct node{
-    int data;
-    struct node* next;
-};
-void insertAtBeginning(struct node** head,int value){
-    struct node* new=(struct node*)malloc(sizeof(struct node));
-    new->data=value;
-    new->next=*head;
-    *head=new;
+#include <stdlib.h>
+#include "linkedlist.h"
+
+// Function to create a new node
+Node* createNode(int data) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
 }
-void display(struct node* head){
-    struct node* temp=head;
-    while(temp!=NULL){
-        printf("%d->",temp->data);
-        temp=temp->next;
+
+// Function to append a node to the linked list
+void appendNode(Node** head, int data) {
+    Node* newNode = createNode(data);
+    if (*head == NULL) {
+        *head = newNode;
+        return;
     }
-   
+    Node* temp = *head;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+    temp->next = newNode;
 }
-int main(){
-    struct node* head=NULL;
-    insertAtBeginning(&head,20);
-    insertAtBeginning(&head,30);
-    insertAtBeginning(&head,40);
-    insertAtBeginning(&head,50);
-    insertAtBeginning(&head,60);
-    display(head);
+
+// Function to display the linked list
+void displayList(Node* head) {
+    Node* temp = head;
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
 }
